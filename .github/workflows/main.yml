@@ -3,7 +3,7 @@ on: [pull_request]
 jobs:
   Fortify-Mobb-example:
     runs-on: ubuntu-latest
-    name: Run scan with Checkmarx and get automated fixes with Mobb
+    name: Run scan with Fortify and get automated fixes with Mobb
 
     steps:
       - name: Checkout repo to get code
@@ -35,7 +35,7 @@ jobs:
           wget https://github.com/fod-dev/fod-uploader-java/releases/download/v5.4.0/FodUpload.jar -O FodUpload.jar
         shell: bash -l {0}
 
-      - name: Run Checkmarx SAST scan
+      - name: Run Fortify SAST scan
         run: |
           ./bin/scancentral package -bt mvn -o fortify_package.zip
 
