@@ -1,9 +1,15 @@
 on: [pull_request]
 
+permissions:
+  contents: read
+  checks: write
+  actions: write
+  statuses: write
+
 jobs:
-  Checkmarx-Mobb-example:
+  Fortify-Mobb-example:
     runs-on: ubuntu-latest
-    name: Run scan with Checkmarx and get automated fixes with Mobb
+    name: Run scan with Fortify and get automated fixes with Mobb
 
     steps:
       - name: Checkout repo to get code
@@ -35,11 +41,11 @@ jobs:
           wget https://github.com/fod-dev/fod-uploader-java/releases/download/v5.4.0/FodUpload.jar -O FodUpload.jar
         shell: bash -l {0}
 
-      - name: Run Checkmarx SAST scan
+      - name: Run Fortify SAST scan
         run: |
           ./bin/scancentral package -bt mvn -o fortify_package.zip
 
-          UPLOAD_OUTPUT=$(java -jar "$TOOLS_DIR/FodUpload.jar" \
+          UPLOAD_OUTPUT=$(java -jar FodUpload.jar \
             -z fortify_package.zip \
             -ep SingleScanOnly \
             -portalurl https://ams.fortify.com/ \
@@ -50,7 +56,7 @@ jobs:
             -pp Queue)
           SCAN_ID=$(echo "$UPLOAD_OUTPUT" | sed -n 's/Scan \([0-9]*\).*$/\1/p')
 
-          node .github/scripts/fortify-wait-fpr.js" "$SCAN_ID"
+          FORTIFY_USER=${{ secrets.FORTIFY_USER }} FORTIFY_TOKEN=${{ secrets.FORTIFY_TOKEN }} FORTIFY_TENANT=${{ secrets.FORTIFY_TENANT }} node .github/scripts/fortify-wait-fpr.js "$SCAN_ID"
 
         shell: bash -l {0}
 
