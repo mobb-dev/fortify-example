@@ -39,7 +39,7 @@ jobs:
         run: |
           ./bin/scancentral package -bt mvn -o fortify_package.zip
 
-          UPLOAD_OUTPUT=$(java -jar "$TOOLS_DIR/FodUpload.jar" \
+          UPLOAD_OUTPUT=$(java -jar FodUpload.jar \
             -z fortify_package.zip \
             -ep SingleScanOnly \
             -portalurl https://ams.fortify.com/ \
