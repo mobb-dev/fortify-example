@@ -1,7 +1,7 @@
 on: [pull_request]
 
 jobs:
-  Checkmarx-Mobb-example:
+  Fortify-Mobb-example:
     runs-on: ubuntu-latest
     name: Run scan with Checkmarx and get automated fixes with Mobb
 
