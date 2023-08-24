@@ -6,6 +6,7 @@ function listener(request, response){
   var eid = url.parse(request.url, true)['query']['eid'];
   if (eid !== undefined){
     response.write('<p>Welcome, ' + eid + '!</p>');
+    
   }
 }
 
