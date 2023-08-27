@@ -14,7 +14,7 @@ public class SQLInjectionExample {
             String username = rs.getString("username");
             String password = rs.getString("password");
 
-            System.out.println("Username: " + username);
+            System.out.println("User: " + username);
             System.out.println("Password: " + password);
         }
     }
