@@ -38,7 +38,7 @@ jobs:
 
       - name: Download Fortify uploader CLI
         run: |
-          wget https://github.com/fod-dev/fod-uploader-java/releases/download/v5.4.0/FodUpload.jar -O FodUpload.jar
+          wget https://github.com/fod-dev/fod-uploader-java/releases/download/v5.4.0/FodUpload.jar -O /opt/FodUpload.jar
         shell: bash -l {0}
 
       - name: Run Fortify SAST scan
@@ -46,7 +46,7 @@ jobs:
           dotnet build
           zip -r fortify_package.zip *
 
-          UPLOAD_OUTPUT=$(java -jar FodUpload.jar \
+          UPLOAD_OUTPUT=$(java -jar /opt/FodUpload.jar \
             -z fortify_package.zip \
             -ep SingleScanOnly \
             -portalurl https://ams.fortify.com/ \
