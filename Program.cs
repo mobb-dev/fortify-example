@@ -17,7 +17,6 @@ public class Program : ControllerBase
 
         while (reader.Read())
         {
-            Console.WriteLine(reader.Name);
             Console.WriteLine(reader.Value);
         }
         reader.Close();
