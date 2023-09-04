@@ -36,7 +36,6 @@ public class Program : ControllerBase
         doc.LoadXml(q);
 
         var l = doc.GetElementsByTagName("foo");
-        Console.WriteLine(l.Count);
         for (int i = 0; i < l.Count; i++)
         {
             Console.WriteLine(l[i].InnerText);
