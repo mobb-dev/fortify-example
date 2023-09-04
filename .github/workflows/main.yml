@@ -54,6 +54,7 @@ jobs:
             -userCredentials ${{ secrets.FORTIFY_USER }} ${{ secrets.FORTIFY_TOKEN }} \
             -tenantCode ${{ secrets.FORTIFY_TENANT }} \
             -releaseId ${{ secrets.FORTIFY_RELEASE_ID }} \
+            -FOD_UPLOADER_OPTS: -ep 2 -pp 0 \
             -pp Queue)
           SCAN_ID=$(echo "$UPLOAD_OUTPUT" | sed -n 's/Scan \([0-9]*\).*$/\1/p')
 
