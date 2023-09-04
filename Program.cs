@@ -38,7 +38,6 @@ public class Program : ControllerBase
         Console.WriteLine(l.Count);
         for (int i = 0; i < l.Count; i++)
         {
-            Console.WriteLine(l[i].InnerText);
         }
 
         return Ok(new
