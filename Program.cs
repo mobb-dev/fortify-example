@@ -13,6 +13,7 @@ public class Program : ControllerBase
     {
         Stream s = new MemoryStream(Encoding.UTF8.GetBytes(q));
         XmlTextReader reader = new XmlTextReader(s);
+        reader.DtdProcessing = DtdProcessing.Prohibit;
 
         while (reader.Read())
         {
