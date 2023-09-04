@@ -57,7 +57,6 @@ public class Program : ControllerBase
 
         while (i.MoveNext())
         {
-            Console.WriteLine(i.Current.Value);
         }
 
         return Ok(new
