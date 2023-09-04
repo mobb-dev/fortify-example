@@ -52,7 +52,7 @@ public class Program : ControllerBase
     public IActionResult GetC(string q)
     {
 
-        XPathDocument doc = new XPathDocument(new StringReader(q));
+        XPathDocument doc = new XPathDocument(XmlReader.Create(new StringReader(q)));
         var nav = doc.CreateNavigator();
         var i = nav.Select("//foo");
 
