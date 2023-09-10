@@ -4,7 +4,7 @@ import java.io.*;
 class Test {
     public static void main(String[] args) throws Exception {
         String arg = args[0];
-        var command = "ls -laxo " + arg;
+        var command = new String[] {"ls", "-laxo", arg};
         Process proc = Runtime.getRuntime().exec(command);
         proc.waitFor();
 
