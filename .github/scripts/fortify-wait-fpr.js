@@ -6,6 +6,21 @@ const FORTIFY_USER = process.env.FORTIFY_USER;
 const FORTIFY_TOKEN = process.env.FORTIFY_TOKEN;
 const FORTIFY_TENANT = process.env.FORTIFY_TENANT;
 
+var countInString = function (haystack, needle) {
+  var count = 0;
+  var position = 0;
+  while (true) {
+    position = haystack.indexOf(needle, position);
+    if (position != -1) {
+      count++;
+      position += needle.length;
+    } else {
+      break;
+    }
+  }
+  return count;
+};
+
 async function main() {
   const tokenData = await fetch("https://api.ams.fortify.com/oauth/token", {
     method: "POST",
@@ -16,11 +31,6 @@ async function main() {
   if (!tokenData || !tokenData.access_token) {
     throw new Error("Can't authenticate, check credentials.");
   }
-
-  let numberOfLowSevIssues = 0;
-  let numberOfMediumSevIssues = 0;
-  let numberOfHighSevIssues = 0;
-  let numberOfCriticalSevIssues = 0;
 
   const token = tokenData.access_token;
 
@@ -34,10 +44,6 @@ async function main() {
 
     if (summaryResponse.status === 200) {
       const summaryData = await summaryResponse.json();
-      numberOfLowSevIssues = summaryData.issueCountLow;
-      numberOfMediumSevIssues = summaryData.issueCountMedium;
-      numberOfHighSevIssues = summaryData.issueCountHigh;
-      numberOfCriticalSevIssues = summaryData.issueCountCritical;
 
       if (summaryData.analysisStatusType === "Completed") {
         break;
@@ -75,10 +81,32 @@ async function main() {
   }
 
   fs.writeFileSync("./scandata.fpr", Buffer.from(buffer));
-  console.log(
-    `Scan complete, number of low severity issues: ${numberOfLowSevIssues}, number of medium severity issues: ${numberOfMediumSevIssues}, number of high severity issues: ${numberOfHighSevIssues}, number of critical severity issues: ${numberOfCriticalSevIssues}`
+  const numberOfInfoSevIssues = countInString(
+    buffer,
+    "<InstanceSeverity>1.0</InstanceSeverity>"
   );
-  if (numberOfCriticalSevIssues > 0 || numberOfHighSevIssues > 0) {
+  const numberOfLowSevIssues = countInString(
+    buffer,
+    "<InstanceSeverity>2.0</InstanceSeverity>"
+  );
+  const numberOfMediumSevIssues = countInString(
+    buffer,
+    "<InstanceSeverity>3.0</InstanceSeverity>"
+  );
+  const numberOfHighSevIssues = countInString(
+    buffer,
+    "<InstanceSeverity>4.0</InstanceSeverity>"
+  );
+  const numberOfCriticalSevIssues = countInString(
+    buffer,
+    "<InstanceSeverity>5.0</InstanceSeverity>"
+  );
+  const hasBlockingIssues =
+    numberOfCriticalSevIssues > 0 || numberOfHighSevIssues > 0;
+  console.log(
+    `Scan complete, number of info severity issues: ${numberOfInfoSevIssues}, number of low severity issues: ${numberOfLowSevIssues}, number of medium severity issues: ${numberOfMediumSevIssues}, number of high severity issues: ${numberOfHighSevIssues}, number of critical severity issues: ${numberOfCriticalSevIssues}`
+  );
+  if (hasBlockingIssues) {
     process.exit(1);
   }
 }
