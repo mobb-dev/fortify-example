@@ -6,7 +6,7 @@ const FORTIFY_USER = process.env.FORTIFY_USER;
 const FORTIFY_TOKEN = process.env.FORTIFY_TOKEN;
 const FORTIFY_TENANT = process.env.FORTIFY_TENANT;
 
-var countInString = function (haystack, needle) {
+const countInString = function (haystack, needle) {
   var count = 0;
   var position = 0;
   while (true) {
@@ -82,23 +82,23 @@ async function main() {
 
   fs.writeFileSync("./scandata.fpr", Buffer.from(buffer));
   const numberOfInfoSevIssues = countInString(
-    buffer,
+    Buffer.from(buffer),
     "<InstanceSeverity>1.0</InstanceSeverity>"
   );
   const numberOfLowSevIssues = countInString(
-    buffer,
+    Buffer.from(buffer),
     "<InstanceSeverity>2.0</InstanceSeverity>"
   );
   const numberOfMediumSevIssues = countInString(
-    buffer,
+    Buffer.from(buffer),
     "<InstanceSeverity>3.0</InstanceSeverity>"
   );
   const numberOfHighSevIssues = countInString(
-    buffer,
+    Buffer.from(buffer),
     "<InstanceSeverity>4.0</InstanceSeverity>"
   );
   const numberOfCriticalSevIssues = countInString(
-    buffer,
+    Buffer.from(buffer),
     "<InstanceSeverity>5.0</InstanceSeverity>"
   );
   const hasBlockingIssues =
