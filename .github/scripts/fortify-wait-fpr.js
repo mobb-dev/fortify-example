@@ -80,23 +80,23 @@ async function main() {
 
   fs.writeFileSync("./scandata.fpr", Buffer.from(buffer));
 
-  const numberOfInfoSevIssues = grepCount(
+  const numberOfInfoSevIssues = await grepCount(
     "<InstanceSeverity>1.0</InstanceSeverity>",
     "./scandata.fpr"
   );
-  const numberOfLowSevIssues = grepCount(
+  const numberOfLowSevIssues = await grepCount(
     "<InstanceSeverity>2.0</InstanceSeverity>",
     "./scandata.fpr"
   );
-  const numberOfMediumSevIssues = grepCount(
+  const numberOfMediumSevIssues = await grepCount(
     "<InstanceSeverity>3.0</InstanceSeverity>",
     "./scandata.fpr"
   );
-  const numberOfHighSevIssues = grepCount(
+  const numberOfHighSevIssues = await grepCount(
     "<InstanceSeverity>4.0</InstanceSeverity>",
     "./scandata.fpr"
   );
-  const numberOfCriticalSevIssues = grepCount(
+  const numberOfCriticalSevIssues = await grepCount(
     "<InstanceSeverity>5.0</InstanceSeverity>",
     "./scandata.fpr"
   );
