@@ -60,6 +60,12 @@ jobs:
 
         shell: bash -l {0}
 
+      - name: Archive fpr
+        uses: actions/upload-artifact@v3
+        with:
+          name: fpr
+          path: scandata.fpr
+
       - name: Run Mobb on the findings and get fixes
         if: always()
         uses: mobb-dev/action@v1
