@@ -80,7 +80,7 @@ async function main() {
     }
 
     if ([202, 429].includes(fileResponse.status)) {
-      console.log(`Waiting FRP file...`);
+      console.log(`Waiting FPR file...`);
       await timers.setTimeout(5000);
     } else {
       throw new Error(

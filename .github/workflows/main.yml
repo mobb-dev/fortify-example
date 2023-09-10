@@ -61,6 +61,7 @@ jobs:
         shell: bash -l {0}
 
       - name: Archive fpr
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: fpr
