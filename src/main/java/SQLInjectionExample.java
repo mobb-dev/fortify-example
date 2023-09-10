@@ -4,6 +4,8 @@ public class SQLInjectionExample {
     public static void main(String[] args, Connection con) throws SQLException {
         String userInputA = args[1];
 
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/db", args[0], args[1]);
+
         String query = "SELECT * FROM users WHERE username = '" + userInputA + "';";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
