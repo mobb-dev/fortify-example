@@ -78,6 +78,9 @@ async function main() {
   console.log(
     `Scan complete, number of low severity issues: ${numberOfLowSevIssues}, number of medium severity issues: ${numberOfMediumSevIssues}, number of high severity issues: ${numberOfHighSevIssues}, number of critical severity issues: ${numberOfCriticalSevIssues}`
   );
+  if (numberOfCriticalSevIssues > 0 || numberOfHighSevIssues > 0) {
+    process.exit(1);
+  }
 }
 
 main().catch(console.error);
