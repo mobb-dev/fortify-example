@@ -67,8 +67,8 @@ async function main() {
     );
 
     if (fileResponse.status === 200) {
-      buffer = await fileResponse.arrayBuffer();
       respText = await fileResponse.text();
+      buffer = Buffer.from(respText, "utf-8");
       break;
     }
 
