@@ -16,7 +16,6 @@ async function grepCount(pattern, filePath) {
     const count = parseInt(stdout.trim(), 10);
     return count;
   } catch (error) {
-    console.error(`Error executing command: ${error}`);
     return 0;
   }
 }
