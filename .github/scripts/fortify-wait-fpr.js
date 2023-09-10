@@ -1,25 +1,23 @@
 const fs = require("node:fs");
 const timers = require("node:timers/promises");
+const { exec } = require("child_process");
+const { promisify } = require("util");
 
 const scanId = process.argv[2];
 const FORTIFY_USER = process.env.FORTIFY_USER;
 const FORTIFY_TOKEN = process.env.FORTIFY_TOKEN;
 const FORTIFY_TENANT = process.env.FORTIFY_TENANT;
 
-const countInString = function (haystack, needle) {
-  var count = 0;
-  var position = 0;
-  while (true) {
-    position = haystack.indexOf(needle, position);
-    if (position != -1) {
-      count++;
-      position += needle.length;
-    } else {
-      break;
-    }
+async function grepCount(pattern, filePath) {
+  try {
+    const { stdout } = await execAsync(`grep -c "${pattern}" ${filePath}`);
+    const count = parseInt(stdout.trim(), 10);
+    return count;
+  } catch (error) {
+    console.error(`Error executing command: ${error}`);
+    return 0;
   }
-  return count;
-};
+}
 
 async function main() {
   const tokenData = await fetch("https://api.ams.fortify.com/oauth/token", {
@@ -56,7 +54,6 @@ async function main() {
   }
 
   let buffer;
-  let respText;
 
   while (true) {
     const fileResponse = await fetch(
@@ -67,8 +64,7 @@ async function main() {
     );
 
     if (fileResponse.status === 200) {
-      respText = await fileResponse.text();
-      buffer = Buffer.from(respText, "utf-8");
+      buffer = await fileResponse.arrayBuffer();
       break;
     }
 
@@ -83,25 +79,26 @@ async function main() {
   }
 
   fs.writeFileSync("./scandata.fpr", Buffer.from(buffer));
-  const numberOfInfoSevIssues = countInString(
-    respText,
-    "<InstanceSeverity>1.0</InstanceSeverity>"
+
+  const numberOfInfoSevIssues = grepCount(
+    "<InstanceSeverity>1.0</InstanceSeverity>",
+    "./scandata.fpr"
   );
-  const numberOfLowSevIssues = countInString(
-    respText,
-    "<InstanceSeverity>2.0</InstanceSeverity>"
+  const numberOfLowSevIssues = grepCount(
+    "<InstanceSeverity>2.0</InstanceSeverity>",
+    "./scandata.fpr"
   );
-  const numberOfMediumSevIssues = countInString(
-    respText,
-    "<InstanceSeverity>3.0</InstanceSeverity>"
+  const numberOfMediumSevIssues = grepCount(
+    "<InstanceSeverity>3.0</InstanceSeverity>",
+    "./scandata.fpr"
   );
-  const numberOfHighSevIssues = countInString(
-    respText,
-    "<InstanceSeverity>4.0</InstanceSeverity>"
+  const numberOfHighSevIssues = grepCount(
+    "<InstanceSeverity>4.0</InstanceSeverity>",
+    "./scandata.fpr"
   );
-  const numberOfCriticalSevIssues = countInString(
-    respText,
-    "<InstanceSeverity>5.0</InstanceSeverity>"
+  const numberOfCriticalSevIssues = grepCount(
+    "<InstanceSeverity>5.0</InstanceSeverity>",
+    "./scandata.fpr"
   );
   const hasBlockingIssues =
     numberOfCriticalSevIssues > 0 || numberOfHighSevIssues > 0;
