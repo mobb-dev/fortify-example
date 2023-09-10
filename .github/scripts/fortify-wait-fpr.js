@@ -17,6 +17,8 @@ async function main() {
     throw new Error("Can't authenticate, check credentials.");
   }
 
+  let numberOfIssues = 0;
+
   const token = tokenData.access_token;
 
   while (true) {
@@ -26,8 +28,6 @@ async function main() {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-
-    let numberOfIssues = 0;
 
     if (summaryResponse.status === 200) {
       const summaryData = await summaryResponse.json();
