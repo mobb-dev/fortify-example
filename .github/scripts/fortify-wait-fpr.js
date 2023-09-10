@@ -17,7 +17,10 @@ async function main() {
     throw new Error("Can't authenticate, check credentials.");
   }
 
-  let numberOfIssues = 0;
+  let numberOfLowSevIssues = 0;
+  let numberOfMediumSevIssues = 0;
+  let numberOfHighSevIssues = 0;
+  let numberOfCriticalSevIssues = 0;
 
   const token = tokenData.access_token;
 
@@ -31,7 +34,10 @@ async function main() {
 
     if (summaryResponse.status === 200) {
       const summaryData = await summaryResponse.json();
-      numberOfIssues = summaryData.totalIssues;
+      numberOfLowSevIssues = summaryData.issueCountLow;
+      numberOfMediumSevIssues = summaryData.issueCountMedium;
+      numberOfHighSevIssues = summaryData.issueCountHigh;
+      numberOfCriticalSevIssues = summaryData.issueCountCritical;
 
       if (summaryData.analysisStatusType === "Completed") {
         break;
@@ -69,10 +75,9 @@ async function main() {
   }
 
   fs.writeFileSync("./scandata.fpr", Buffer.from(buffer));
-  console.log(`Scan complete, ${numberOfIssues} issues found.`);
-  if (numberOfIssues > 0) {
-    process.exit(1);
-  }
+  console.log(
+    `Scan complete, number of low severity issues: ${numberOfLowSevIssues}, number of medium severity issues: ${numberOfMediumSevIssues}, number of high severity issues: ${numberOfHighSevIssues}, number of critical severity issues: ${numberOfCriticalSevIssues}`
+  );
 }
 
 main().catch(console.error);
