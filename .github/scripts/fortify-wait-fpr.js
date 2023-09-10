@@ -56,6 +56,7 @@ async function main() {
   }
 
   let buffer;
+  let respText;
 
   while (true) {
     const fileResponse = await fetch(
@@ -67,6 +68,7 @@ async function main() {
 
     if (fileResponse.status === 200) {
       buffer = await fileResponse.arrayBuffer();
+      respText = await fileResponse.text();
       break;
     }
 
@@ -82,23 +84,23 @@ async function main() {
 
   fs.writeFileSync("./scandata.fpr", Buffer.from(buffer));
   const numberOfInfoSevIssues = countInString(
-    Buffer.from(buffer),
+    respText,
     "<InstanceSeverity>1.0</InstanceSeverity>"
   );
   const numberOfLowSevIssues = countInString(
-    Buffer.from(buffer),
+    respText,
     "<InstanceSeverity>2.0</InstanceSeverity>"
   );
   const numberOfMediumSevIssues = countInString(
-    Buffer.from(buffer),
+    respText,
     "<InstanceSeverity>3.0</InstanceSeverity>"
   );
   const numberOfHighSevIssues = countInString(
-    Buffer.from(buffer),
+    respText,
     "<InstanceSeverity>4.0</InstanceSeverity>"
   );
   const numberOfCriticalSevIssues = countInString(
-    Buffer.from(buffer),
+    respText,
     "<InstanceSeverity>5.0</InstanceSeverity>"
   );
   const hasBlockingIssues =
