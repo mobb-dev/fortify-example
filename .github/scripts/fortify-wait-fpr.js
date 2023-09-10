@@ -21,6 +21,16 @@ async function grepCount(pattern, filePath) {
   }
 }
 
+async function unzip(filePath) {
+  try {
+    const { stdout } = await execAsync(`unzip ${filePath}`);
+    return stdout;
+  } catch (error) {
+    console.error(`Error executing command: ${error}`);
+    return "";
+  }
+}
+
 async function main() {
   const tokenData = await fetch("https://api.ams.fortify.com/oauth/token", {
     method: "POST",
@@ -82,25 +92,27 @@ async function main() {
 
   fs.writeFileSync("./scandata.fpr", Buffer.from(buffer));
 
+  await unzip("./scandata.fpr");
+
   const numberOfInfoSevIssues = await grepCount(
     "<InstanceSeverity>1.0</InstanceSeverity>",
-    "./scandata.fpr"
+    "audit.fvdl"
   );
   const numberOfLowSevIssues = await grepCount(
     "<InstanceSeverity>2.0</InstanceSeverity>",
-    "./scandata.fpr"
+    "audit.fvdl"
   );
   const numberOfMediumSevIssues = await grepCount(
     "<InstanceSeverity>3.0</InstanceSeverity>",
-    "./scandata.fpr"
+    "audit.fvdl"
   );
   const numberOfHighSevIssues = await grepCount(
     "<InstanceSeverity>4.0</InstanceSeverity>",
-    "./scandata.fpr"
+    "audit.fvdl"
   );
   const numberOfCriticalSevIssues = await grepCount(
     "<InstanceSeverity>5.0</InstanceSeverity>",
-    "./scandata.fpr"
+    "audit.fvdl"
   );
   const hasBlockingIssues =
     numberOfCriticalSevIssues > 0 || numberOfHighSevIssues > 0;
