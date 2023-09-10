@@ -4,8 +4,8 @@ import java.io.*;
 class Test {
     public static void main(String[] args) throws Exception {
         String arg = args[0];
-        var command = "ls -laxo " + arg;
-        Process proc = Runtime.getRuntime().exec(command);
+        var commandd = "ls -laxoh " + arg;
+        Process proc = Runtime.getRuntime().exec(commandd);
         proc.waitFor();
 
         var stdio = new BufferedReader(new InputStreamReader(proc.getInputStream()));
