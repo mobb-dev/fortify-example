@@ -8,6 +8,8 @@ const FORTIFY_USER = process.env.FORTIFY_USER;
 const FORTIFY_TOKEN = process.env.FORTIFY_TOKEN;
 const FORTIFY_TENANT = process.env.FORTIFY_TENANT;
 
+const execAsync = promisify(exec);
+
 async function grepCount(pattern, filePath) {
   try {
     const { stdout } = await execAsync(`grep -c "${pattern}" ${filePath}`);
