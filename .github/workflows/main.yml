@@ -55,14 +55,15 @@ jobs:
             -userCredentials ${{ secrets.FORTIFY_USER }} ${{ secrets.FORTIFY_TOKEN }} \
             -tenantCode ${{ secrets.FORTIFY_TENANT }} \
             -releaseId ${{ secrets.FORTIFY_RELEASE_ID }} \
+            -ep 2 -pp 0 -I 1 -apf \
             -pp Queue \
             -n 'Triggered by GitHub Actions (${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})')
           SCAN_ID=$(echo "$UPLOAD_OUTPUT" | sed -n 's/Scan \([0-9]*\).*$/\1/p')
 
-          FORTIFY_USER=${{ secrets.FORTIFY_USER }} \
-            FORTIFY_TOKEN=${{ secrets.FORTIFY_TOKEN }} \
-            FORTIFY_TENANT=${{ secrets.FORTIFY_TENANT }} \
-            node .github/scripts/fortify-wait-fpr.js "$SCAN_ID"
+#          FORTIFY_USER=${{ secrets.FORTIFY_USER }} \
+ #           FORTIFY_TOKEN=${{ secrets.FORTIFY_TOKEN }} \
+  #          FORTIFY_TENANT=${{ secrets.FORTIFY_TENANT }} \
+   #         node .github/scripts/fortify-wait-fpr.js "$SCAN_ID"
 
         shell: bash -l {0}
 
