@@ -46,26 +46,16 @@ jobs:
         run: scancentral package -bt mvn -o fortify_package.zip
 
       - name: Perform SAST Scan
-        run: |
-          UPLOAD_OUTPUT=$(java -jar $FOD_UPLOAD_JAR \
-            -z fortify_package.zip \
-            -ep SingleScanOnly \
-            -portalurl https://ams.fortify.com/ \
-            -apiurl https://api.ams.fortify.com/ \
-            -userCredentials ${{ secrets.FORTIFY_USER }} ${{ secrets.FORTIFY_TOKEN }} \
-            -tenantCode ${{ secrets.FORTIFY_TENANT }} \
-            -releaseId ${{ secrets.FORTIFY_RELEASE_ID }} \
-            -ep 2 -pp 0 -I 1 -apf \
-            -pp Queue \
-            -n 'Triggered by GitHub Actions (${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})')
-          SCAN_ID=$(echo "$UPLOAD_OUTPUT" | sed -n 's/Scan \([0-9]*\).*$/\1/p')
-
-#          FORTIFY_USER=${{ secrets.FORTIFY_USER }} \
- #           FORTIFY_TOKEN=${{ secrets.FORTIFY_TOKEN }} \
-  #          FORTIFY_TENANT=${{ secrets.FORTIFY_TENANT }} \
-   #         node .github/scripts/fortify-wait-fpr.js "$SCAN_ID"
-
-        shell: bash -l {0}
+        run: java -jar $FOD_UPLOAD_JAR -z fortify_package.zip -aurl $FOD_API_URL -purl $FOD_URL -rid "$FOD_RELEASE_ID" -tc "$FOD_TENANT" -uc "$FOD_USER" "$FOD_PAT" $FOD_UPLOADER_OPTS -n "$FOD_UPLOADER_NOTES"
+        env:
+          FOD_URL: "https://ams.fortify.com/"
+          FOD_API_URL: "https://api.ams.fortify.com/"
+          FOD_TENANT: ${{ secrets.FORTIFY_TENANT }}
+          FOD_USER: ${{ secrets.FORTIFY_USER }}
+          FOD_PAT: ${{ secrets.FOD_PAT }}
+          FOD_RELEASE_ID: ${{ secrets.FORTIFY_RELEASE_ID }}
+          FOD_UPLOADER_OPTS: "-ep 2 -pp 0 -I 1 -apf"
+          FOD_UPLOADER_NOTES: 'Triggered by GitHub Actions (${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})'
 
       - name: Archive fpr
         if: failure()
