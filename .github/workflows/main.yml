@@ -47,7 +47,7 @@ jobs:
 
       - name: Perform SAST Scan
         run: |
-          UPLOAD_OUTPUT=$(java -jar FodUpload.jar \
+          UPLOAD_OUTPUT=$(java -jar $FOD_UPLOAD_JAR \
             -z fortify_package.zip \
             -ep SingleScanOnly \
             -portalurl https://ams.fortify.com/ \
