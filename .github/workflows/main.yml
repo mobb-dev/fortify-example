@@ -31,20 +31,22 @@ jobs:
         with:
           maven-version: 3.8.6
 
-      - name: Download and configure Fortify CLI
+      - name: Download and configure packages
         run: |
           sudo apt-get update
           sudo apt-get install -y unzip sed
-          wget https://tools.fortify.com/scancentral/Fortify_ScanCentral_Client_21.2.0_x64.zip -O fcs.zip
-          unzip fcs.zip
-          chmod +x bin/scancentral
-          wget https://github.com/fod-dev/fod-uploader-java/releases/download/v5.4.0/FodUpload.jar -O FodUpload.jar
-        shell: bash -l {0}
 
-      - name: Run Fortify SAST scan
+      - name: Download Fortify ScanCentral Client
+        uses: fortify/gha-setup-scancentral-client@v2
+
+      - name: Download Fortify on Demand Universal CI Tool
+        uses: fortify/gha-setup-fod-uploader@v1
+
+      - name: Package Code + Dependencies
+        run: scancentral package -bt mvn -o fortify_package.zip
+
+      - name: Perform SAST Scan
         run: |
-          ./bin/scancentral package -bt mvn -o fortify_package.zip
-
           UPLOAD_OUTPUT=$(java -jar FodUpload.jar \
             -z fortify_package.zip \
             -ep SingleScanOnly \
@@ -53,10 +55,14 @@ jobs:
             -userCredentials ${{ secrets.FORTIFY_USER }} ${{ secrets.FORTIFY_TOKEN }} \
             -tenantCode ${{ secrets.FORTIFY_TENANT }} \
             -releaseId ${{ secrets.FORTIFY_RELEASE_ID }} \
-            -pp Queue)
+            -pp Queue) \
+            -n 'Triggered by GitHub Actions (${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})'
           SCAN_ID=$(echo "$UPLOAD_OUTPUT" | sed -n 's/Scan \([0-9]*\).*$/\1/p')
 
-          FORTIFY_USER=${{ secrets.FORTIFY_USER }} FORTIFY_TOKEN=${{ secrets.FORTIFY_TOKEN }} FORTIFY_TENANT=${{ secrets.FORTIFY_TENANT }} node .github/scripts/fortify-wait-fpr.js "$SCAN_ID"
+          FORTIFY_USER=${{ secrets.FORTIFY_USER }} \
+            FORTIFY_TOKEN=${{ secrets.FORTIFY_TOKEN }} \
+            FORTIFY_TENANT=${{ secrets.FORTIFY_TENANT }} \
+            node .github/scripts/fortify-wait-fpr.js "$SCAN_ID"
 
         shell: bash -l {0}
 
