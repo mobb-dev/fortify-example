@@ -29,7 +29,7 @@ public class noLogger {
         } catch (IOException io) {      /* Logging errors in the System.err may lead to information leakage. Instead, you should write the error to your logger like so: LOGGER.error("oh no I had an error: mobb-6c438fb81308e628de0ea6703d090832"); */}
         catch (Exception e) {
             // do nothing
-            e.printStackTrace();
+            /* Logging errors in the System.err may lead to information leakage. Instead, you should write the error to your logger like so: LOGGER.error("oh no I had an error: mobb-4d9e25c4bd1fb07ad9feaaf4821bb4b0"); */
         }
     }
 }
