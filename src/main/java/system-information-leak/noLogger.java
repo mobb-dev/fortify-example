@@ -24,7 +24,7 @@ public class noLogger {
             } catch (ArithmeticException e) {
                 /* Logging errors in the System.err may lead to information leakage. Instead, you should write the error to your logger like so: LOGGER.error("oh no I had an error: mobb-6e5aaab40be393dbb253c07e9bebf04b"); */
             } catch (ArrayIndexOutOfBoundsException ex) {
-                ex.printStackTrace();
+                /* Logging errors in the System.err may lead to information leakage. Instead, you should write the error to your logger like so: LOGGER.error("oh no I had an error: mobb-a5f44a6ff4bae2bf2670b48b9f4c8a7f"); */
             }
         } catch (IOException io) {      /* Logging errors in the System.err may lead to information leakage. Instead, you should write the error to your logger like so: LOGGER.error("oh no I had an error: mobb-6c438fb81308e628de0ea6703d090832"); */}
         catch (Exception e) {
