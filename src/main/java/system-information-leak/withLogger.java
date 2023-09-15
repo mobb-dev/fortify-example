@@ -27,7 +27,7 @@ public class withLogger {
             } catch (ArithmeticException e) {
                 e.printStackTrace();
             } catch (ArrayIndexOutOfBoundsException ex) {
-                ex.printStackTrace();ex.printStackTrace(ps);ex.printStackTrace(pw);
+                ex.printStackTrace();
             }
         } catch (IOException io) {      io.printStackTrace();}
         catch (Exception e) {
