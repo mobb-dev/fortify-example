@@ -29,7 +29,7 @@ public class withLogger {
             } catch (ArrayIndexOutOfBoundsException ex) {
                 LOGGER.error("oops I didn't see that coming error: mobb-e686d450cc8cadf8e75b5a180c1e759e");
             }
-        } catch (IOException io) {      io.printStackTrace();}
+        } catch (IOException io) {      LOGGER.error("oops I didn't see that coming error: mobb-281e28adeb3fd7bee3160649195453ab");}
         catch (Exception e) {
             // do nothing
             e.printStackTrace();
