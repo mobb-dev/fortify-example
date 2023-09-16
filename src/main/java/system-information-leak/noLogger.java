@@ -22,7 +22,7 @@ public class noLogger {
                 System.out.println(myNumbers[10]);
 
             } catch (ArithmeticException e) {
-                e.printStackTrace();
+                /* Logging errors in the System.err may lead to information leakage. Instead, you should write the error to your logger like so: LOGGER.error("oops here is an error: mobb-6e5aaab40be393dbb253c07e9bebf04b"); */
             } catch (ArrayIndexOutOfBoundsException ex) {
                 /* Logging errors in the System.err may lead to information leakage. Instead, you should write the error to your logger like so: LOGGER.error("oops here is an error: mobb-a5f44a6ff4bae2bf2670b48b9f4c8a7f"); */
             }
