@@ -26,7 +26,7 @@ public class noLogger {
             } catch (ArrayIndexOutOfBoundsException ex) {
                 /* Logging errors in the System.err may lead to information leakage. Instead, you should write the error to your logger like so: LOGGER.error("oops I didn't see that coming error: mobb-a5f44a6ff4bae2bf2670b48b9f4c8a7f"); */
             }
-        } catch (IOException io) {      io.printStackTrace();}
+        } catch (IOException io) {      /* Logging errors in the System.err may lead to information leakage. Instead, you should write the error to your logger like so: LOGGER.error("oops I didn't see that coming error: mobb-6c438fb81308e628de0ea6703d090832"); */}
         catch (Exception e) {
             // do nothing
             e.printStackTrace();
