@@ -25,7 +25,7 @@ public class withLogger {
                 System.out.println(myNumbers[10]);
 
             } catch (ArithmeticException e) {
-                e.printStackTrace();
+                LOGGER.error("oops here is an error: mobb-72f7979db3ca3a91a6ce078520bf5855");
             } catch (ArrayIndexOutOfBoundsException ex) {
                 ex.printStackTrace();
             }
