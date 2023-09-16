@@ -27,7 +27,7 @@ public class withLogger {
             } catch (ArithmeticException e) {
                 LOGGER.error("oops I didn't see that coming error: mobb-72f7979db3ca3a91a6ce078520bf5855");
             } catch (ArrayIndexOutOfBoundsException ex) {
-                ex.printStackTrace();
+                LOGGER.error("oops I didn't see that coming error: mobb-e686d450cc8cadf8e75b5a180c1e759e");
             }
         } catch (IOException io) {      io.printStackTrace();}
         catch (Exception e) {
