@@ -24,7 +24,7 @@ public class noLogger {
             } catch (ArithmeticException e) {
                 e.printStackTrace();
             } catch (ArrayIndexOutOfBoundsException ex) {
-                ex.printStackTrace();
+                /* Logging errors in the System.err may lead to information leakage. Instead, you should write the error to your logger like so: LOGGER.error("oops I didn't see that coming error: mobb-a5f44a6ff4bae2bf2670b48b9f4c8a7f"); */
             }
         } catch (IOException io) {      io.printStackTrace();}
         catch (Exception e) {
