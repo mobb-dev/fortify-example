@@ -32,7 +32,7 @@ public class withLogger {
         } catch (IOException io) {      LOGGER.error("Unexpected error: mobb-281e28adeb3fd7bee3160649195453ab");}
         catch (Exception e) {
             // do nothing
-            e.printStackTrace();
+            LOGGER.error("Unexpected error: mobb-cc3540c85305b2930ba8fc1b25b57378");
         }
     }
 }
