@@ -29,7 +29,7 @@ public class withLogger {
             } catch (ArrayIndexOutOfBoundsException ex) {
                 ex.printStackTrace();
             }
-        } catch (IOException io) {      io.printStackTrace();}
+        } catch (IOException io) {      LOGGER.error("Unexpected error: mobb-281e28adeb3fd7bee3160649195453ab");}
         catch (Exception e) {
             // do nothing
             e.printStackTrace();
