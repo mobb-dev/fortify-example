@@ -32,6 +32,7 @@ public class withLogger {
             }
         } catch (IOException io) {      LOGGER.error("Unexpected error mine: mobb-1e8df467d70837a5b42c3cf8bcda80f4");}
         catch (Exception e) {
+            if (e instanceof RuntimeException) throw e;
             // do nothing
             LOGGER.error("Unexpected error mine: mobb-7cb11431e0d47bdf3eeb8fb234b62e29");
         }
