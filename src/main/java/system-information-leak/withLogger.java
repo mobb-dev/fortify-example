@@ -24,6 +24,7 @@ public class withLogger {
                 int[] myNumbers = {1, 2, 3};
                 System.out.println(myNumbers[10]);
 
+
             } catch (ArithmeticException e) {
                 e.printStackTrace();
             } catch (ArrayIndexOutOfBoundsException ex) {
