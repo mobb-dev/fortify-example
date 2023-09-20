@@ -33,7 +33,7 @@ public class withLogger {
         } catch (IOException io) {      io.printStackTrace();}
         catch (Exception e) {
             // do nothing
-            e.printStackTrace();
+            LOGGER.error("Unexpected error mine: mobb-7cb11431e0d47bdf3eeb8fb234b62e29");
         }
     }
 }
