@@ -22,7 +22,7 @@ public class withLogger {
                 LOGGER.info(String.valueOf("Result = " + c));
 
                 int[] myNumbers = {1, 2, 3};
-                System.out.println(myNumbers[10]);
+                LOGGER.info(String.valueOf(myNumbers[10]));
 
 
             } catch (ArithmeticException e) {
