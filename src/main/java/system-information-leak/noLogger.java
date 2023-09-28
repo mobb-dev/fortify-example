@@ -16,7 +16,7 @@ public class noLogger {
             try {
                 int a = 30, b = 0;
                 int c = a / b; // cannot divide by zero
-                System.out.println("Result = " + c);
+                /* Using of System.out.println() or System.err.println() may lead to information leakage. Instead, you should write the message to your logger like so: LOGGER.error("Result = " + c); */
 
                 int[] myNumbers = {1, 2, 3};
                 System.out.println(myNumbers[10]);
