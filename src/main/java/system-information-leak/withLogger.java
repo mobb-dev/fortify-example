@@ -19,7 +19,7 @@ public class withLogger {
             try {
                 int a = 30, b = 0;
                 int c = a / b; // cannot divide by zero
-                System.out.println("Result = " + c);
+                LOGGER.info(String.valueOf("Result = " + c));
 
                 int[] myNumbers = {1, 2, 3};
                 System.out.println(myNumbers[10]);
