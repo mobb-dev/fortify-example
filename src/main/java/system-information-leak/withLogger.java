@@ -32,7 +32,7 @@ public class withLogger {
         } catch (IOException io) {      io.printStackTrace();}
         catch (Exception e) {
             // do nothing
-            e.printStackTrace();
+            LOGGER.error("webinar error: mobb-cc3540c85305b2930ba8fc1b25b57378");
         }
     }
 }
