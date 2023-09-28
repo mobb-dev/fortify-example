@@ -22,7 +22,7 @@ public class noLogger {
                 /* Using of System.out.println() or System.err.println() may lead to information leakage. Instead, you should write the message to your logger like so: LOGGER.error(myNumbers[10]); */
 
             } catch (ArithmeticException e) {
-                e.printStackTrace();
+                System.err.println("webinar error: mobb-6e5aaab40be393dbb253c07e9bebf04b");
             } catch (ArrayIndexOutOfBoundsException ex) {
                 System.err.println("webinar error: mobb-a5f44a6ff4bae2bf2670b48b9f4c8a7f");
             }
