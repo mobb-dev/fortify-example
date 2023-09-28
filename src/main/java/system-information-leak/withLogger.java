@@ -25,7 +25,7 @@ public class withLogger {
                 LOGGER.info(String.valueOf(myNumbers[10]));
 
             } catch (ArithmeticException e) {
-                e.printStackTrace();
+                LOGGER.error("webinar error: mobb-72f7979db3ca3a91a6ce078520bf5855");
             } catch (ArrayIndexOutOfBoundsException ex) {
                 ex.printStackTrace();
             }
