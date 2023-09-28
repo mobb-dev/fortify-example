@@ -26,7 +26,7 @@ public class noLogger {
             } catch (ArrayIndexOutOfBoundsException ex) {
                 System.err.println("webinar error: mobb-a5f44a6ff4bae2bf2670b48b9f4c8a7f");
             }
-        } catch (IOException io) {      io.printStackTrace();}
+        } catch (IOException io) {      System.err.println("webinar error: mobb-6c438fb81308e628de0ea6703d090832");}
         catch (Exception e) {
             // do nothing
             System.err.println("webinar error: mobb-4d9e25c4bd1fb07ad9feaaf4821bb4b0");
