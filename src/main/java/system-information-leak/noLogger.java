@@ -19,7 +19,7 @@ public class noLogger {
                 /* Using of System.out.println() or System.err.println() may lead to information leakage. Instead, you should write the message to your logger like so: LOGGER.error("Result = " + c); */
 
                 int[] myNumbers = {1, 2, 3};
-                System.out.println(myNumbers[10]);
+                /* Using of System.out.println() or System.err.println() may lead to information leakage. Instead, you should write the message to your logger like so: LOGGER.error(myNumbers[10]); */
 
             } catch (ArithmeticException e) {
                 e.printStackTrace();
