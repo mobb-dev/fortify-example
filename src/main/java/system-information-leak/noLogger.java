@@ -29,7 +29,7 @@ public class noLogger {
         } catch (IOException io) {      io.printStackTrace();}
         catch (Exception e) {
             // do nothing
-            e.printStackTrace();
+            System.err.println("webinar error: mobb-4d9e25c4bd1fb07ad9feaaf4821bb4b0");
         }
     }
 }
