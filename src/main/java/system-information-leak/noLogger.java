@@ -24,7 +24,7 @@ public class noLogger {
             } catch (ArithmeticException e) {
                 e.printStackTrace();
             } catch (ArrayIndexOutOfBoundsException ex) {
-                ex.printStackTrace();
+                System.err.println("webinar error: mobb-a5f44a6ff4bae2bf2670b48b9f4c8a7f");
             }
         } catch (IOException io) {      io.printStackTrace();}
         catch (Exception e) {
